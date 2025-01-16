@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image to GIF</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        #image-container {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="image-container"></div>
+
+    <script>
+        // URLs for the static image, the first GIF, and the repeating GIF
+        const staticImageURL = 'start.gif'; // Replace with your static image URL
+        const firstGifURL = 'first.gif'; // Replace with your first GIF URL
+        const repeatingGifURL = 'gif.gif'; // Replace with your repeating GIF URL
+        const linkURL = 'https://soundcloud.com/swords2/sets/wish'; // Replace with your desired link URL
+
+        const imageContainer = document.getElementById('image-container');
+
+        // Start with the static image
+        imageContainer.style.backgroundImage = `url(${staticImageURL})`;
+
+        let currentState = 'static';
+
+        imageContainer.addEventListener('click', () => {
+            if (currentState === 'static') {
+                // Change to the first GIF
+                imageContainer.style.backgroundImage = `url(${firstGifURL})`;
+                currentState = 'firstGif';
+
+                // Wait for the first GIF to finish playing (approx duration in milliseconds)
+                setTimeout(() => {
+                    imageContainer.style.backgroundImage = `url(${repeatingGifURL})`;
+                    currentState = 'repeatingGif';
+                }, 1870); // Adjust the timeout duration to match your GIF's length
+            } else if (currentState === 'repeatingGif') {
+                // Open the link in a new tab
+                window.open(linkURL, '_blank');
+            }
+        });
+    </script>
+</body>
+</html>
